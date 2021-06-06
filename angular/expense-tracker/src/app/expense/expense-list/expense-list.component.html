@@ -1,0 +1,59 @@
+<div fxLayout="column">
+<div fxLayout="row" >
+    <button mat-raised-button color="primary"(click)="openAddExpense()" >Add Expense</button>
+
+</div>
+    <div fxLayout="row">
+
+        <div>
+            <mat-card class="expense-dashboard-card">
+                <mat-card-title>
+                    <p>Total Expense</p>
+                </mat-card-title>
+                <mat-card-content>
+                    <span>{{expenseItemsTotal}}</span>
+                </mat-card-content>
+            </mat-card>
+        </div>
+
+        <!-- total count card section  -->
+    </div>
+    <div fxLayout="row" class="add-expense-container">
+        <!-- expense group card -->
+
+        
+
+    </div>
+
+    <div fxLayout="row wrap" class="expenses-container">
+        <mat-card *ngFor = "let expense of expenses" class="expense-container" >
+            <mat-card-content>
+                <p> {{expense.expenseName}} </p>
+                <h6>Expense Items</h6>
+                <p>{{expense.expenseItems.length}}</p>
+                <button (click)  = 'viewExpense(expense.expenseId)' mat-raised-button color="primary">View</button>
+            </mat-card-content>
+        </mat-card>
+    </div>
+
+    <div fxLayout = "row" class="expense-item-container">
+        <mat-list>
+            <mat-list-item *ngFor = "let expenseItem of expenseItems">
+               <div fxLayout="row">
+                <div fxLayout="column" class="expense-item-holder">
+                    <span> {{expenseItem.expenseItemName}}</span>
+                    <span>ExpenseGroup </span>
+                   </div> 
+                   <div fxLayout="column">
+                    <span class="expense-item-price">{{expenseItem.expenseItemPrice}}</span>
+                    <span>{{expenseItem.expenseItemQuantity}}</span>
+                   </div>
+               </div>
+
+            
+               
+            </mat-list-item>
+        </mat-list>
+    </div>
+
+</div>

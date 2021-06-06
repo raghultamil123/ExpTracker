@@ -1,0 +1,42 @@
+<div fxLayout="column">
+
+ <form #expenseForm="ngForm">
+
+    <mat-form-field class="expense-name-input">
+        <mat-label>Expense Name</mat-label>
+        <input name="expenseName" [(ngModel)] = "expense.expenseName" matInput placeholder="Expense Name">
+    </mat-form-field>
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+        <button mat-raised-button color="primary" (click) = "addExpenseItems()">Add Item</button>
+        <div>
+            <p>Total:</p>
+            <span>{{itemsTotal}}</span>
+
+        </div>
+    </div>
+    <div fxLayout="column" class="expense-item-container">
+   <div fxLayout = "row" fxLayoutAlign="space-between center" *ngFor="let expenseItem of expense.expenseItems;let in = index">
+    <mat-form-field >
+        <mat-label>Expense Item</mat-label>
+        <input name="expenseItem_{{in}}" [(ngModel)]="expenseItem.expenseItemName"  matInput placeholder="Expense Item">
+    </mat-form-field>
+
+    <mat-form-field >
+        <mat-label>Quantity</mat-label>
+        <input name="expenseQuantity_{{in}}" (change)="calculateItem()" [(ngModel)]="expenseItem.expenseItemQuantity" matInput placeholder="Quantity">
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Price</mat-label>
+        <input name="expensePrice_{{in}}" (change)="calculateItem()" [(ngModel)]="expenseItem.expenseItemPrice" matInput placeholder="price">
+    </mat-form-field>
+   </div>
+    </div>    
+
+
+ </form>   
+ 
+</div>
+
+<mat-dialog-actions align="end">
+    <button mat-raised-button color="primary" (click)="saveExpense()"> Submit </button>
+</mat-dialog-actions>

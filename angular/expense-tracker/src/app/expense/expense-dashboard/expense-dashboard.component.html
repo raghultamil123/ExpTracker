@@ -1,0 +1,89 @@
+<div fxLayout="column">
+    <div fxLayout="row" class="dashboard-container">
+        <!-- dashboard card section and month section -->
+        <mat-card class="dashboard-item">
+            <mat-card-content>
+              <h1>Month Salary</h1>
+              <p>20,000</p>
+            </mat-card-content>
+          </mat-card>
+        
+          <mat-card class="dashboard-item">
+        <mat-card-content>
+          <h1>Expense Items</h1>
+          <p>{{expenseItem}}</p>
+        </mat-card-content>
+          </mat-card>
+          <mat-card class="dashboard-item">
+           <mat-card-content>
+             <h1>Expense Group</h1>
+             <p>{{expenseGroup}}</p>
+           </mat-card-content>
+          </mat-card>
+          <div class="expense-month-selector">
+            <mat-form-field >
+              <input matInput [matDatepicker] = "dp2" placeholder="select Month " (click)="openDatePicker(dp2)">
+              <mat-datepicker-toggle matSuffix [for]="dp2"></mat-datepicker-toggle>
+              <mat-datepicker #dp2 startView="multi-year" (monthSelected)="closeDatePicker($event,dp2)"></mat-datepicker>
+            </mat-form-field>
+          </div>
+
+    </div>
+
+          <div fxLayout="row">
+
+
+            <div fxLayout="column" class="chart-container">
+                <!-- high chart section and category section -->
+        
+                    <div>
+                    <div fxLayout="row" fxLayoutAlign="end center">
+                        <mat-form-field  class="chart-options-select" appearance="fill">
+                            <mat-label>Chart Options</mat-label>
+                            <mat-select>
+                              <mat-option *ngFor="let food of foods" [value]="food.value">
+                                {{food.viewValue}}
+                              </mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                          <div>
+                            <p>Total Expense</p>
+                            <p>1300</p>
+                          </div>
+                     </div>
+        
+                       <highcharts-chart
+                     [Highcharts] = "highcharts" 
+                     [options] = "chartOptions" 
+                      style = "width: 100%; height: 400px; display: block;">
+                      </highcharts-chart>
+                  </div>
+                 </div>
+
+
+                 <div class="category-container">
+                  <h3>Category</h3>
+                 <div class="category-item">
+             <p>Grocery</p>
+              <mat-progress-bar mode="determinate" value="40"></mat-progress-bar>
+              </div>
+                <div class="category-item">
+            <p>Clothing</p>
+            <mat-progress-bar mode="determinate" value="70"></mat-progress-bar>
+           </div>
+           <div class="category-item">
+            <p>Food</p>
+            <mat-progress-bar mode="determinate" value="30"></mat-progress-bar>
+            </div>
+              <div class="category-item">
+              <p>Item4</p>
+              <mat-progress-bar mode="determinate" value="50"></mat-progress-bar>
+              </div>
+              </div>
+
+
+
+          </div>
+
+    
+</div>

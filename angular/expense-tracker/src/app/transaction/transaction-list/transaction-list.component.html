@@ -1,0 +1,111 @@
+
+<div class="filter-content-container" fxLayout="row" fxLayoutAlign="space between center">
+    <span (click)="toggleFilter()"> 
+        <mat-icon matRipple  >filter_alt</mat-icon>
+    </span>
+<mat-card  [@enterAnimation] *ngIf = "showFilter" class="filters-container">
+    <mat-card-header>
+        <p>Filters</p>
+    </mat-card-header>
+    <mat-card-content>
+        <mat-form-field>
+            <input type="text"
+            placeholder="Search Note"
+            aria-label="Number"
+            matInput
+            [matAutocomplete]="auto">
+            <mat-autocomplete #auto="matAutocomplete">
+                <mat-option *ngFor="let note of notes" [value]="note">
+                  {{note}}
+                </mat-option>
+              </mat-autocomplete>
+        </mat-form-field>
+        
+        <div fxLayout="row">
+
+        <div class="filter-container"  fxLayout="column wrap">
+            <P>Bank</P>
+            <ng-container *ngFor="let bank of checkboxData.bank;let i = index">
+                <mat-checkbox [checked] = "bank.isChecked"  (change)="selectedCheckboxChange($event,bank,'bank',i)"  class="filter-checkbox-item">{{bank.name}}</mat-checkbox>
+
+            </ng-container>
+        </div>
+        <div class="filter-container" fxLayout="column wrap" >
+            <p>Status</p>
+            <ng-container *ngFor="let status of checkboxData.status;let in = index" >
+                <mat-checkbox [checked] = "status.isChecked"  (change)="selectedCheckboxChange($event,status,'status',in)" class="filter-checkbox-item">{{status.name}}</mat-checkbox>
+
+            </ng-container>
+        </div>
+    </div>
+
+        <button mat-raised-button color="primary" (click) ="searchTransactions()" >Submit</button>
+    </mat-card-content>
+</mat-card>
+
+<div>
+    <mat-chip-list>
+        <ng-container *ngFor = "let val of selectedItemCategory" >
+            <mat-chip *ngFor="let item of selectedItem.get(val)" color="primary"  [removable]="true" selected> {{item}}      
+            </mat-chip>
+
+        </ng-container>
+        
+    </mat-chip-list>
+</div>
+
+</div>
+
+
+
+<table mat-table [dataSource]="transactions" matSort  >
+
+
+    <ng-container matColumnDef="amount">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Amount</th>
+    <td mat-cell *matCellDef="let ele">
+
+        <div fxLayout="row" >
+
+
+        <div class="amount-text">
+            {{ele.amount | currency:'INR'}}
+
+        </div>
+
+
+    </div>
+
+
+    </td>
+</ng-container>
+
+<ng-container matColumnDef="note">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Note </th>
+    <td mat-cell *matCellDef="let ele">{{ele.note}}</td>
+</ng-container>
+
+<ng-container matColumnDef="moneyFromBank">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>From Bank</th>
+    <td mat-cell *matCellDef="let ele">{{ele.moneyFromBank}}</td>
+</ng-container>
+
+
+<ng-container matColumnDef="moneyStatus">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Money Status</th>
+    <td mat-cell *matCellDef="let ele">
+        <div [ngClass]="getClassForStatus(ele.moneyStatus)">
+            {{ele.moneyStatus}}
+
+        </div>
+    
+    </td>
+</ng-container>
+
+<tr mat-header-row *matHeaderRowDef="columns"></tr>
+  <tr mat-row *matRowDef="let row; columns: columns;"></tr>
+</table>
+<mat-progress-bar *ngIf="isTransactionListLoading" mode="indeterminate"></mat-progress-bar>
+
+
+

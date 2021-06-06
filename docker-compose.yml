@@ -1,0 +1,35 @@
+version: '3.7'
+services: 
+    db:
+        container_name: db
+        image: mysql
+        ports: 
+            - "4200:3306"
+        restart: always
+        environment: 
+            MYSQL_DATABASE: expense_tracker
+            MYSQL_ROOT_PASSWORD: password
+            MYSQL_USER: expense-user
+            MYSQL_PASSWORD: expense-password
+        networks: 
+            - backend-network
+    expense-server:
+        container_name: expense-server
+        build: ./Springboot/codebase/expensetracker
+        ports: 
+            - "8080:8080"
+        restart: always
+        networks: 
+            - backend-network
+        depends_on: 
+            - db
+    expense-ui:
+        container_name: expense-ui
+        build: ./angular/expense-tracker
+        ports: 
+            - "80:80"
+        depends_on: 
+            - expense-server        
+networks: 
+    backend-network:
+        driver: bridge
