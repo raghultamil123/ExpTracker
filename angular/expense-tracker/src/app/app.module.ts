@@ -21,6 +21,7 @@ import { ExpenseItemInfoComponent } from './expense/expense-details/expense-item
 import { ExpenseAddComponent } from './expense/expense-list/expense-add/expense-add.component';
 import { FormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
+import { HomeComponent } from './home/home.component';
 
 
 @NgModule({
@@ -37,7 +38,8 @@ import { LoginComponent } from './login/login.component';
     ExpenseInfoComponent,
     ExpenseItemInfoComponent,
     ExpenseAddComponent,
-    LoginComponent
+    LoginComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,

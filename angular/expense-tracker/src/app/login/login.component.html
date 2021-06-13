@@ -1,1 +1,20 @@
-<p>login works!</p>
+
+<div fxLayout="column" fxLayoutAlign="space-around center" class="login-container">
+    <mat-card class="login-card">
+        <mat-card-content>
+            <div fxLayout = "column">
+                <h1>Login</h1>
+                    <mat-form-field >
+                      <mat-label>Username</mat-label>
+                      <input matInput placeholder="Username">
+                    </mat-form-field>
+                    <mat-form-field >
+                        <mat-label>Password</mat-label>
+                        <input type="password" matInput placeholder="Password">
+                      </mat-form-field>
+                <button mat-raised-button color="primary">Submit</button>
+            </div>
+        </mat-card-content>
+    </mat-card>
+
+</div>
