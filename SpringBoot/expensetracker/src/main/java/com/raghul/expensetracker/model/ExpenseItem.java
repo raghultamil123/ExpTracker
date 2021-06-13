@@ -26,6 +26,9 @@ public class ExpenseItem extends BaseModel{
 	private Integer price;
 	@Column(name="quantity")
 	private Integer quantity;
+	@Column(name="userId")
+	@Type(type="uuid-char")
+	private UUID userId;
 	public UUID getExpenseItemId() {
 		return expenseItemId;
 	}
@@ -56,6 +59,14 @@ public class ExpenseItem extends BaseModel{
 	public void setQuantity(Integer quantity) {
 		this.quantity = quantity;
 	}
+	public UUID getUserId() {
+		return userId;
+	}
+	public void setUserId(UUID userId) {
+		this.userId = userId;
+	}
+	
+	
 	
 	
 	

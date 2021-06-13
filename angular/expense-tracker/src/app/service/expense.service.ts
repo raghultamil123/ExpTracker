@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { ExpenseItemResponse } from '../shared/model/expense-item-response.model';
+import { ExpenseItem } from '../shared/model/expense-item.model';
 import { Expense } from '../shared/model/expense.model';
 
 @Injectable({
@@ -35,6 +36,14 @@ export class ExpenseService {
 
   getExpenseDashboard():Observable<any>{
  return this.httpClient.get<any>(this.EXPENSE_BASE_URL + 'dashboard')
+  }
+
+  getExpensesItems(startDate,endDate,startMonth):Observable<ExpenseItem[]>{
+    return this.httpClient.get<ExpenseItem[]>(this.EXPENSE_BASE_URL + 'expenses-items',{
+      params:{
+        'startMonth':startMonth
+      }
+    });
   }
 
 }

@@ -25,32 +25,7 @@ export class ExpenseDetailsComponent implements OnInit {
   }
 
   name = 'raghul'
-  expense:Expense= 
-    
-    {
-      'expenseName':"test 2",
-      'expenseItems':[
-        {
-          'expenseitemName':'soap'
-        },
-        {
-          'expenseitemName':'oil'
-        },
-        {
-          'expenseitemName':'Shampoo'
-        },
-        {
-          'expenseitemName':'towel'
-        },
-        {
-          'expenseitemName':'comb'
-        }
-        ,
-        {
-          'expenseitemName':'cookie jar'
-        }
-      ]
-    }
+  expense:Expense
 
   
 

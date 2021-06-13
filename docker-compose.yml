@@ -15,21 +15,14 @@ services:
             - backend-network
     expense-server:
         container_name: expense-server
-        build: ./Springboot/codebase/expensetracker
+        build: ./SpringBoot/expensetracker
         ports: 
             - "8080:8080"
         restart: always
         networks: 
             - backend-network
         depends_on: 
-            - db
-    expense-ui:
-        container_name: expense-ui
-        build: ./angular/expense-tracker
-        ports: 
-            - "80:80"
-        depends_on: 
-            - expense-server        
+            - db        
 networks: 
     backend-network:
         driver: bridge

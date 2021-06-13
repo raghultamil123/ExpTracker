@@ -1,6 +1,8 @@
 package com.raghul.expensetracker.service;
 
+import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -97,6 +99,21 @@ public class ExpenseServiceImpl implements ExpenseService {
 		dashboardMap.put("expenseItem", String.valueOf(expenseItemRepository.count()));
 
 		return dashboardMap;
+	}
+
+
+	@Override
+	public List<ExpenseItemDTO> getExpenseItems(Date startDate, Date endDate, Date startMonth) {
+		
+		if(startDate != null && endDate != null) {
+			List<ExpenseItem> expenseItems = expenseItemRepository.findByCreatedOnBetween(startDate, endDate);
+			return expenseTranslator.translateToExpenseItemDTOs(expenseItems);
+		}else if(startMonth != null) {
+			List<ExpenseItem> expenseItems = expenseItemRepository.findByCreatedOn(startMonth);
+			return expenseTranslator.translateToExpenseItemDTOs(expenseItems);
+		}
+		
+		return Collections.emptyList();
 	}
 
 	

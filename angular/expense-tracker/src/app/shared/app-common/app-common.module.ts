@@ -19,6 +19,10 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatChipsModule} from '@angular/material/chips';
 import {MatRippleModule} from '@angular/material/core';
 import {MatDialogModule} from '@angular/material/dialog';
+import {MatRadioModule} from '@angular/material/radio';
+import {MatTooltipModule} from '@angular/material/tooltip';
+
+
 
 
 
@@ -62,7 +66,9 @@ import {MatDialogModule} from '@angular/material/dialog';
     MatAutocompleteModule,
     MatChipsModule,
     MatRippleModule,
-    MatDialogModule
+    MatDialogModule,
+    MatRadioModule,
+    MatTooltipModule
     
 
   ],
@@ -84,7 +90,9 @@ import {MatDialogModule} from '@angular/material/dialog';
     MatAutocompleteModule,
     MatChipsModule,
     MatRippleModule,
-    MatDialogModule
+    MatDialogModule,
+    MatRadioModule,
+    MatTooltipModule
   ]
 })
 export class AppCommonModule { }

@@ -5,6 +5,7 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.PrePersist;
 
 @MappedSuperclass
 public class BaseModel {
@@ -34,6 +35,18 @@ public class BaseModel {
 		this.isActive = isActive;
 	}
 	
+	@PrePersist
+	public void prePersist() {
+		if(this.getCreatedOn() == null) {
+			this.setCreatedOn(new Date());
+		}
+		if(this.getIsActive() == null) {
+			this.setIsActive(true);
+		}
+		if(this.getUpdatedOn() == null) {
+			this.setUpdatedOn(new Date());
+		}
+	}
 	
 	
 

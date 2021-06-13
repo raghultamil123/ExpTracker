@@ -35,7 +35,7 @@ export class ExpenseAddComponent implements OnInit {
   addExpenseItems(){
     this.expense.expenseItems.push(
       {
-        expenseitemName:'',
+        expenseItemName:'',
         expenseItemPrice:0,
         expenseItemQuantity:0
       }

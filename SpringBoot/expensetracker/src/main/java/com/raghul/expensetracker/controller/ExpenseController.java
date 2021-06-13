@@ -1,5 +1,6 @@
 package com.raghul.expensetracker.controller;
 
+import java.sql.Date;
 import java.util.UUID;
 
 import javax.annotation.Resource;
@@ -51,6 +52,14 @@ public class ExpenseController {
 	public ResponseEntity<?> getExpenseDashboard(){
 		return ResponseEntity.ok(expenseService.getExpenseDashboard());
 	}
+	
+	@GetMapping("/expenses-items")
+	public ResponseEntity<?> getExpensesItems(@RequestParam(value="startDate",required=false) Date startDate,
+			@RequestParam(value="endDate",required=false) Date endDate,@RequestParam(value="startMonth",required=false) Date startMonth ){
+		return ResponseEntity.ok(expenseService.getExpenseItems(startDate, endDate, startMonth));
+	}
+	
+	
 	
 
 }

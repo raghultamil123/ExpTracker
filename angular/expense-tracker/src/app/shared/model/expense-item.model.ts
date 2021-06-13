@@ -1,5 +1,5 @@
 export class ExpenseItem{
-    constructor(public expenseitemName:string,public expenseItemPrice?:number,public expenseItemQuantity?:number){
+    constructor(public expenseItemName:string,public expenseItemPrice?:number,public expenseItemQuantity?:number){
         
     }
 }

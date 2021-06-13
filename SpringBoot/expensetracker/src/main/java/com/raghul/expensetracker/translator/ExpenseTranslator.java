@@ -71,7 +71,6 @@ public class ExpenseTranslator {
 	}
 
 	public ExpenseDTO translateToExpenseDTO(Expense expense, Map<UUID, List<ExpenseItem>> expenseItemMap) {
-		// TODO Auto-generated method stub
 		ExpenseDTO expenseDTO = new ExpenseDTO();
 		expenseDTO.setExpenseName(expense.getExpenseName());
 		expenseDTO.setExpenseId(expense.getExpenseId().toString());
