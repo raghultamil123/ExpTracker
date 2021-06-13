@@ -22,7 +22,14 @@ services:
         networks: 
             - backend-network
         depends_on: 
-            - db        
+            - db
+    expense-ui:
+        container_name: expense-ui
+        build: ./angular/expense-tracker
+        ports: 
+            - "80:80"
+        depends_on: 
+            - expense-server            
 networks: 
     backend-network:
         driver: bridge
