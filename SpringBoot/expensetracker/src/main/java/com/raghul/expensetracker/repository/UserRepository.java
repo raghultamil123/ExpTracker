@@ -8,4 +8,6 @@ import com.raghul.expensetracker.model.User;
 
 public interface UserRepository extends JpaRepository<User, UUID> {
 
+	User findByFirstName(String username);
+
 }

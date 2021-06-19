@@ -1,7 +1,9 @@
 FROM maven:3.8.1-openjdk as build
 WORKDIR /app/code
+ADD pom.xml /app/code
+RUN ["/usr/local/bin/mvn-entrypoint.sh", "mvn", "verify", "clean", "--fail-never"]
 COPY . .
-RUN mvn clean install -DskipTests
+RUN ["mvn", "package","-DskipTests"]
 
 FROM openjdk:8
 COPY --from=build /app/code/target/*.jar app.jar

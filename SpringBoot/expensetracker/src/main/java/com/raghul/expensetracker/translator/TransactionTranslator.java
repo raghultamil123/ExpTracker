@@ -27,6 +27,7 @@ public class TransactionTranslator {
 		transaction.setNote(transactionDTO.getNote());
 		transaction.setRecipient(transactionDTO.getRecipient());
 		transaction.setUserId(UUID.fromString(transactionDTO.getUserId()));
+		transaction.setUserMobileId(UUID.fromString(transactionDTO.getUserMobileNumberId()));
 		return transaction;
 	}
 	

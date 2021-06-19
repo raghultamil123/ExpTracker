@@ -4,6 +4,7 @@ import java.util.UUID;
 
 import javax.annotation.Resource;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.raghul.expensetracker.dto.AuthRequestDTO;
 import com.raghul.expensetracker.dto.UserDTO;
 import com.raghul.expensetracker.service.UserService;
 
@@ -34,6 +36,16 @@ public class UserController {
 	public ResponseEntity<?> getUserDetails(@PathVariable("userId")UUID userId){
 	   UserDTO userDTO = userService.getUser(userId);
 	   return ResponseEntity.ok(userDTO);
+	}
+	
+	@PostMapping("/authenticate")
+	public ResponseEntity<?> authenticate(@RequestBody AuthRequestDTO authRequestDTO){
+	
+		try {
+			return ResponseEntity.ok(userService.authenticateUser(authRequestDTO));
+		}catch(Exception ex) {
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+		}
 	}
 	
 }

@@ -12,6 +12,7 @@ public class TransactionDTO {
 	private String recipient;
 	private String userId;
 	private String moneyFromBank;
+	private String userMobileNumberId;
 	public String getAmount() {
 		return amount;
 	}
@@ -48,6 +49,14 @@ public class TransactionDTO {
 	public void setMoneyFromBank(String moneyFromBank) {
 		this.moneyFromBank = moneyFromBank;
 	}
+	public String getUserMobileNumberId() {
+		return userMobileNumberId;
+	}
+	public void setUserMobileNumberId(String userMobileNumberId) {
+		this.userMobileNumberId = userMobileNumberId;
+	}
+	
+	
 	
 	
 

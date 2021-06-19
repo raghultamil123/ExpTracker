@@ -40,15 +40,15 @@
                     <div fxLayout="row" fxLayoutAlign="end center">
                         <mat-form-field  class="chart-options-select" appearance="fill">
                             <mat-label>Chart Options</mat-label>
-                            <mat-select>
-                              <mat-option *ngFor="let food of foods" [value]="food.value">
-                                {{food.viewValue}}
+                            <mat-select (selectionChange)="getChangedOption($event.value)">
+                              <mat-option *ngFor="let view of viewOptions" [value]="view.value">
+                                {{view.viewValue}}
                               </mat-option>
                             </mat-select>
                           </mat-form-field>
                           <div>
                             <p>Total Expense</p>
-                            <p>1300</p>
+                            <p>{{expenseTotal}}</p>
                           </div>
                      </div>
         
@@ -62,25 +62,6 @@
                  </div>
 
 
-                 <div class="category-container">
-                  <h3>Category</h3>
-                 <div class="category-item">
-             <p>Grocery</p>
-              <mat-progress-bar mode="determinate" value="40"></mat-progress-bar>
-              </div>
-                <div class="category-item">
-            <p>Clothing</p>
-            <mat-progress-bar mode="determinate" value="70"></mat-progress-bar>
-           </div>
-           <div class="category-item">
-            <p>Food</p>
-            <mat-progress-bar mode="determinate" value="30"></mat-progress-bar>
-            </div>
-              <div class="category-item">
-              <p>Item4</p>
-              <mat-progress-bar mode="determinate" value="50"></mat-progress-bar>
-              </div>
-              </div>
 
 
 

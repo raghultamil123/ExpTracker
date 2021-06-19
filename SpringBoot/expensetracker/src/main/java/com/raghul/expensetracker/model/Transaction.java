@@ -30,6 +30,9 @@ public class Transaction extends BaseModel{
 	@Column(name="user_id")
 	@Type(type="uuid-char")
 	private UUID userId;
+	@Column(name="user_mobile_number_Id")
+	@Type(type="uuid-char")
+	private UUID userMobileId;
 	public UUID getTransactionId() {
 		return transactionId;
 	}
@@ -72,6 +75,13 @@ public class Transaction extends BaseModel{
 	public void setUserId(UUID userId) {
 		this.userId = userId;
 	}
+	public UUID getUserMobileId() {
+		return userMobileId;
+	}
+	public void setUserMobileId(UUID userMobileId) {
+		this.userMobileId = userMobileId;
+	}
+	
 	
 	
 		

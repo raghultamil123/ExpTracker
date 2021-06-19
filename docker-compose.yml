@@ -13,6 +13,8 @@ services:
             MYSQL_PASSWORD: expense-password
         networks: 
             - backend-network
+        volumes:
+            - expense_data:/var/lib/mysql
     expense-server:
         container_name: expense-server
         build: ./SpringBoot/expensetracker
@@ -33,3 +35,5 @@ services:
 networks: 
     backend-network:
         driver: bridge
+volumes:
+    expense_data:

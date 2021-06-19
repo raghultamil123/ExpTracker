@@ -65,7 +65,6 @@ public class TransactionServiceImpl implements TransactionService{
 		if(!transactions.isEmpty()) {
 			transactionTranslator.addFromBankFilter(filters, transactions);
 			transactionTranslator.addMoneyStatusFilter(filters, transactions);
-
 		}
 		return filters;
 	}

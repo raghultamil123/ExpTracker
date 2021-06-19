@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import * as Highcharts from 'highcharts';
 import { ExpenseService } from 'src/app/service/expense.service';
 
+import * as moment from 'moment';
+
 @Component({
   selector: 'app-expense-dashboard',
   templateUrl: './expense-dashboard.component.html',
@@ -14,10 +16,12 @@ export class ExpenseDashboardComponent implements OnInit {
   expenseItem:number=0
   expenseGroup:number=0
   updateValue= true
+  expenseTotal = 0;
 
   ngOnInit(): void {
     this.getExpenseDashboard()
     this.getExpenseItems()
+    this.getExpenseItemThisWeek();
   }
   getExpenseDashboard(){
     this.expenseService.getExpenseDashboard().subscribe((res)=>{
@@ -26,11 +30,49 @@ export class ExpenseDashboardComponent implements OnInit {
     })
   }
 
-  foods = [
-    {value: 'steak-0', viewValue: 'this month'},
-    {value: 'pizza-1', viewValue: 'this week'}
+  viewOptions = [
+    {value: 'month', viewValue: 'this month'},
+    {value: 'week', viewValue: 'this week'}
   ]
 
+  getChangedOption(option){
+    console.log(option);
+    if(option === 'month'){
+      this.getExpenseItems();
+    }else if(option === 'week'){
+      this.getExpenseItemThisWeek();
+    }
+  }
+
+
+  getExpenseItemThisWeek(){
+    let startDate = moment().startOf("week").toDate();
+    let endDate = moment().endOf("week").toDate();
+    let startString = this.getFormattedDate(startDate);
+    let endString = this.getFormattedDate(endDate)
+
+    console.log('start Date ',startDate,' ',endDate);
+    this.expenseService.getExpensesItems(startString,endString,undefined)
+    .subscribe( (res)=>{
+      let dataItem = []
+      res.forEach( (val)=>{
+        let item = {
+          name:val.expenseItemName,
+          data:[val.expenseItemPrice]
+        }
+        dataItem.push(item);
+      } )
+      this.loadChartData(dataItem) 
+    } )
+
+  }
+
+  getFormattedDate(date){
+    let dd = String(date.getDate()).padStart(2, '0');
+    let mm = String(date.getMonth() + 1).padStart(2, '0'); 
+    let yyyy = date.getFullYear();
+   return `${yyyy}-${mm}-${dd}`;
+  }
   openDatePicker(dp){
     dp.open()
   }

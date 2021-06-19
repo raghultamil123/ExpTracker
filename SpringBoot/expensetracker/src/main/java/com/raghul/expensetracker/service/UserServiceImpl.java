@@ -7,7 +7,10 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Component;
 
+import com.raghul.expensetracker.dto.AuthRequestDTO;
+import com.raghul.expensetracker.dto.AuthResponseDTO;
 import com.raghul.expensetracker.dto.UserDTO;
+import com.raghul.expensetracker.exception.UnauthorizedException;
 import com.raghul.expensetracker.model.User;
 import com.raghul.expensetracker.model.UserEmail;
 import com.raghul.expensetracker.model.UserPassword;
@@ -59,6 +62,36 @@ public class UserServiceImpl implements UserService {
 		userDTO.setUserEmail(userTranslator.translateToUserEmailDTOs(userEmails));
 		
 		return userDTO;
+	}
+
+	@Override
+	public AuthResponseDTO authenticateUser(AuthRequestDTO authRequestDTO) throws UnauthorizedException {
+		
+		User user = userRepository.findByFirstName(authRequestDTO.getUsername());
+		if(user != null) {
+		  List<UserPassword> userPasswords = userPasswordRepository.findByUserId(user.getUserId());
+		  if(!userPasswords.isEmpty()) {
+			  AuthResponseDTO authResponseDTO = new AuthResponseDTO();
+			  userPasswords.forEach( (password)->{
+				  if(password.getPassword().equals(authRequestDTO.getPassword())) {
+					  authResponseDTO.setUserId(user.getUserId().toString());
+				  }
+			  });
+			  if(authResponseDTO.getUserId() != null) {
+				  return authResponseDTO;
+			  }else {
+				  throw new UnauthorizedException("Invalid Username");
+			  }
+		  }
+		  throw new UnauthorizedException("invalid details");
+		}
+		
+		throw new UnauthorizedException("invalid details");
+		
+		
+		
+		
+		
 	}
 
 }

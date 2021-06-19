@@ -41,7 +41,9 @@ export class ExpenseService {
   getExpensesItems(startDate,endDate,startMonth):Observable<ExpenseItem[]>{
     return this.httpClient.get<ExpenseItem[]>(this.EXPENSE_BASE_URL + 'expenses-items',{
       params:{
-        'startMonth':startMonth
+        'startMonth':startMonth,
+        'startDate':startDate,
+        'endDate':endDate
       }
     });
   }
