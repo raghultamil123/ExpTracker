@@ -37,3 +37,4 @@ networks:
         driver: bridge
 volumes:
     expense_data:
+        external: true

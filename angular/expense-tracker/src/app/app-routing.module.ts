@@ -8,6 +8,8 @@ import { LoginComponent } from './login/login.component';
 import { SettingsComponent } from './settings/settings.component';
 import { TransactionListComponent } from './transaction/transaction-list/transaction-list.component';
 import { TransactionComponent } from './transaction/transaction.component';
+import { UserDetailsComponent } from './user/user-details/user-details.component';
+import { UserRegistrationComponent } from './user/user-registration/user-registration.component';
 import { UserComponent } from './user/user.component';
 
 const routes: Routes = [
@@ -20,7 +22,11 @@ const routes: Routes = [
     {path:'transaction',component:TransactionComponent,children:[
       {path:'transaction-list',component:TransactionListComponent}
     ]},
-    {path:'user',component:UserComponent},
+    {path:'user',component:UserComponent,children:[
+      {path:'register',component:UserRegistrationComponent},
+      {path: 'details',component:UserDetailsComponent},
+      {path:'edit',component:UserRegistrationComponent}
+    ]},
     {path:'settings',component:SettingsComponent}
   ]},
   {path:'login',component:LoginComponent}

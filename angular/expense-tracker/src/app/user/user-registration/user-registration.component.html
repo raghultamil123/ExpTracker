@@ -1,0 +1,51 @@
+<div fxLayout="column" class="user-add-container">
+    <h1>Profile</h1>
+    <div fxLayout="row" fxLayoutAlign="space-between none">
+        <mat-form-field>
+            <input name = "firstname" matInput placeholder="FirstName">
+        </mat-form-field>
+        <mat-form-field>
+            <input name="lastname" matInput placeholder="lastName">
+        </mat-form-field>
+
+        <mat-form-field  >
+            <mat-label>Date Of Birth</mat-label>
+            <input matInput [matDatepicker]="datepicker">
+            <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+            <mat-datepicker #datepicker>
+              <mat-datepicker-actions>
+                <button mat-button matDatepickerCancel>Cancel</button>
+                <button mat-raised-button color="primary" matDatepickerApply>Apply</button>
+              </mat-datepicker-actions>
+            </mat-datepicker>
+          </mat-form-field>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="space-between none">
+        <div fxLayout="column">
+            <div *ngFor = "let email of user.emails;let in=index">
+                <mat-form-field>
+                    <input name="email_{{in}}" matInput placeholder="Enter Email Address">
+                </mat-form-field>
+                <button class="add-primary" mat-raised-button color="primary">Add Primary</button>
+                <button class="add-new-button" mat-raised-button color="primary" (click)="addEmail()">Add</button>
+                <mat-icon matRipple  class="delete-button" (click)="deleteEmail(email,in)" >delete</mat-icon>
+            </div>
+        </div>
+        <div fxLayout="column">
+            <div *ngFor="let phone of user.mobile;let in = index">
+                <mat-form-field>
+                    <input name="phone_{{in}}" matInput placeholder="Enter Phone Number">
+                </mat-form-field>
+                <button mat-raised-button color="primary" class="add-allow">Allow to Read</button>
+                <button mat-raised-button color="primary" class="add-new-button" (click)="addMobile()">Add</button>
+                <mat-icon matRipple class="delete-button" (click)="deletePhone(phone,in)">delete</mat-icon> 
+            </div>
+        </div>
+    </div>
+    <div fxLayout="row">
+ <mat-form-field>
+     <input matInput placeholder="Salary">
+ </mat-form-field>
+    </div>
+</div>
