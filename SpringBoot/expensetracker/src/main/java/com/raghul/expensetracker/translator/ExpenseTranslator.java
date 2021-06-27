@@ -13,6 +13,7 @@ import com.raghul.expensetracker.dto.ExpenseDTO;
 import com.raghul.expensetracker.dto.ExpenseItemDTO;
 import com.raghul.expensetracker.model.Expense;
 import com.raghul.expensetracker.model.ExpenseItem;
+import com.raghul.expensetracker.utils.DateUtils;
 
 @Component
 public class ExpenseTranslator {
@@ -24,7 +25,7 @@ public class ExpenseTranslator {
 		expense.setExpenseName(
 				expenseDTO.getExpenseName()
 				);
-		
+		expense.setUserId(UUID.fromString(expenseDTO.getUserId()));
 		return expense;
 	}
 	
@@ -52,6 +53,7 @@ public class ExpenseTranslator {
 		expenseItem.setExpenseId(expenseId);
 		expenseItem.setPrice(expenseItemDTO.getExpenseItemPrice());
 		expenseItem.setQuantity(expenseItemDTO.getExpenseItemQuantity());
+		expenseItem.setUserId(UUID.fromString(expenseItemDTO.getUserId()));
 		return expenseItem;
 	}
 
@@ -116,6 +118,7 @@ public class ExpenseTranslator {
 		itemDTO.setExpenseItemName(expenseItem.getExpenseItem());
 		itemDTO.setExpenseItemPrice(expenseItem.getPrice());
 		itemDTO.setExpenseItemQuantity(expenseItem.getQuantity());
+		itemDTO.setCreatedOn(DateUtils.convertToDateString(expenseItem.getCreatedOn(), "YYYY-MM-dd"));
 		return itemDTO;
 	}
 	

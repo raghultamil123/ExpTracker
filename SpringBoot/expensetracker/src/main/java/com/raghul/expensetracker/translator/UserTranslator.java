@@ -30,6 +30,15 @@ public class UserTranslator {
 		return user;
 	}
 	
+	
+	public UserDTO translateToUserDTO(User user) {
+		UserDTO userDTO = new UserDTO();
+		userDTO.setUserId(user.getUserId().toString());
+		userDTO.setFirstName( user.getFirstName());
+		userDTO.setLastName( user.getLastName());
+		userDTO.setDateOfBirth( user.getDateOfBirth());
+		return userDTO;
+	}
 	public List<UserEmail> translateToUserEmail(UserDTO userDTO,UUID userId) {
 		List<UserEmailDTO> emailsDTO = Optional.ofNullable(userDTO.getUserEmail()).orElse(Collections.emptyList());
 		

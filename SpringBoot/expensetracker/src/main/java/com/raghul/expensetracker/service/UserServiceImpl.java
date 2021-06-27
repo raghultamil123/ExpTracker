@@ -57,7 +57,7 @@ public class UserServiceImpl implements UserService {
 		User user = userRepository.getOne(userId);
 		List<UserEmail> userEmails = userEmailRepository.findByUserId(userId);
 		List<UserPhone> userPhones = userPhoneRepository.findByUserId(userId);
-		UserDTO userDTO = new UserDTO();
+		UserDTO userDTO = userTranslator.translateToUserDTO(user);
 		userDTO.setUserPhone(userTranslator.translateToUserPhoneDTOs(userPhones));;
 		userDTO.setUserEmail(userTranslator.translateToUserEmailDTOs(userEmails));
 		

@@ -19,9 +19,13 @@ export class ExpenseDetailsComponent implements OnInit {
   }
 
   getExpenseById(expenseId:string){
-    this.expenseService.getExpenseById(expenseId).subscribe( (res)=>{
-      this.expense = res
-    } )
+    let userId = localStorage.getItem("userId");
+    if(userId){
+      this.expenseService.getExpenseById(userId,expenseId).subscribe( (res)=>{
+        this.expense = res
+      } )
+    }
+    
   }
 
   name = 'raghul'

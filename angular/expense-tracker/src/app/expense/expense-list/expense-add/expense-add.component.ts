@@ -43,13 +43,16 @@ export class ExpenseAddComponent implements OnInit {
   }
 
   saveExpense(){
-    console.log(this.expense);
-    this.expenseService.saveExpense(this.expense)
-    .subscribe( (res)=>{
-      this.dialogRef.close()
-    },(err)=>{
-      console.log(err);
-    } )
+    let userId = localStorage.getItem("userId");
+    if(userId){
+      this.expenseService.saveExpense(userId,this.expense)
+      .subscribe( (res)=>{
+        this.dialogRef.close()
+      },(err)=>{
+        console.log(err);
+      } )
+    }
+    
   }
 
 }

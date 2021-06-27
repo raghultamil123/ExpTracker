@@ -18,8 +18,15 @@ public interface ExpenseItemRepository extends JpaRepository<ExpenseItem, UUID>{
 	@Query("select expenseItem from ExpenseItem expenseItem where date(expenseItem.createdOn) between :startDate and :endDate")
 	List<ExpenseItem> findByCreatedOnBetween(Date startDate,Date endDate);
 	
-	@Query("select expenseItem from ExpenseItem expenseItem where month(expenseItem.createdOn) = month(:startMonth)")
-	List<ExpenseItem> findByCreatedOn(Date startMonth);
+	@Query("select expenseItem from ExpenseItem expenseItem where month(expenseItem.createdOn) = month(:startMonth) and userId=:userId")
+	List<ExpenseItem> findByUserIdAndCreatedOn(UUID userId,Date startMonth);
+
+	List<ExpenseItem> findByUserId(UUID userId);
+
+	Long countByUserId(UUID userId);
+
+	List<ExpenseItem> findByUserIdAndCreatedOnBetween(UUID userId, Date startDate, Date endDate);
+
 	
 	
 

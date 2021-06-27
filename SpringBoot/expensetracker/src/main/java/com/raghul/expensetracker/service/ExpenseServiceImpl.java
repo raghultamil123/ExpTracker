@@ -36,7 +36,7 @@ public class ExpenseServiceImpl implements ExpenseService {
 	
 	
 	@Override
-	public void saveExpense(ExpenseDTO expenseDTO) {
+	public void saveExpense(UUID userId,ExpenseDTO expenseDTO) {
 		Expense expense = expenseTranslator.translateToExpense(expenseDTO);
 		UUID expenseId = expenseRepository.save(expense).getExpenseId();
 		List<ExpenseItem> expenseItems = expenseTranslator.translateToExpenseItems(expenseDTO.getExpenseItems(), expenseId);
@@ -46,9 +46,9 @@ public class ExpenseServiceImpl implements ExpenseService {
 
 
 	@Override
-	public List<ExpenseDTO> getAllExpense() {
+	public List<ExpenseDTO> getAllExpense(UUID userId) {
 		
-		List<Expense> expenses = expenseRepository.findAll();
+		List<Expense> expenses = expenseRepository.findByUserId(userId);
 		List<UUID> expenseIds = expenses.stream().map(Expense::getExpenseId).collect(Collectors.toList());
 		List<ExpenseItem> expenseItems = expenseItemRepository.findByExpenseIdIn(expenseIds);
 		Map<UUID,List<ExpenseItem>> expenseItemMap = new HashMap<>();
@@ -69,7 +69,7 @@ public class ExpenseServiceImpl implements ExpenseService {
 
 
 	@Override
-	public ExpenseDTO getExpenseDetails(UUID expenseId) {
+	public ExpenseDTO getExpenseDetails(UUID userId,UUID expenseId) {
 		Expense expense = expenseRepository.findByExpenseId(expenseId);
 		List<ExpenseItem> expenseItems = expenseItemRepository.findByExpenseId(expenseId);
 		Map<UUID,List<ExpenseItem>> expenseItemMap = new HashMap<>();
@@ -79,8 +79,8 @@ public class ExpenseServiceImpl implements ExpenseService {
 
 
 	@Override
-	public ExpenseItemResponseDTO getExpenseItems() {
-		List<ExpenseItem> expenseItems = expenseItemRepository.findAll();
+	public ExpenseItemResponseDTO getExpenseItems(UUID userId) {
+		List<ExpenseItem> expenseItems = expenseItemRepository.findByUserId(userId);
 		List<ExpenseItemDTO> expenseItemsDTO = expenseTranslator.translateToExpenseItemDTOs(expenseItems);
 		Integer priceTotal = expenseItems.stream().map( item->item.getPrice() * item.getQuantity())
 				.collect(Collectors.summingInt(Integer::intValue));
@@ -92,28 +92,32 @@ public class ExpenseServiceImpl implements ExpenseService {
 
 
 	@Override
-	public Map<String, String> getExpenseDashboard() {
+	public Map<String, String> getExpenseDashboard(UUID userId) {
 		
 		Map<String,String> dashboardMap = new HashMap<>();
-		dashboardMap.put("expenseGroup", String.valueOf(expenseRepository.count()));
-		dashboardMap.put("expenseItem", String.valueOf(expenseItemRepository.count()));
+		dashboardMap.put("expenseGroup", String.valueOf(expenseRepository.countByUserId(userId)));
+		dashboardMap.put("expenseItem", String.valueOf(expenseItemRepository.countByUserId(userId)));
 
 		return dashboardMap;
 	}
 
 
 	@Override
-	public List<ExpenseItemDTO> getExpenseItems(Date startDate, Date endDate, Date startMonth) {
+	public Map<String,List<ExpenseItemDTO>> getExpenseItems(UUID userId,Date startDate, Date endDate, Date startMonth) {
 		
+		List<ExpenseItemDTO> expenseItemDTOs = new ArrayList<>();
 		if(startDate != null && endDate != null) {
-			List<ExpenseItem> expenseItems = expenseItemRepository.findByCreatedOnBetween(startDate, endDate);
-			return expenseTranslator.translateToExpenseItemDTOs(expenseItems);
+			List<ExpenseItem> expenseItems = expenseItemRepository.findByUserIdAndCreatedOnBetween(userId,startDate, endDate);
+			expenseItemDTOs = expenseTranslator.translateToExpenseItemDTOs(expenseItems);
 		}else if(startMonth != null) {
-			List<ExpenseItem> expenseItems = expenseItemRepository.findByCreatedOn(startMonth);
-			return expenseTranslator.translateToExpenseItemDTOs(expenseItems);
+			List<ExpenseItem> expenseItems = expenseItemRepository.findByUserIdAndCreatedOn(userId,startMonth);
+			expenseItemDTOs = expenseTranslator.translateToExpenseItemDTOs(expenseItems);
+			
 		}
 		
-		return Collections.emptyList();
+		return expenseItemDTOs.stream().collect( 
+				Collectors.groupingBy(ExpenseItemDTO::getCreatedOn));
+		
 	}
 
 	

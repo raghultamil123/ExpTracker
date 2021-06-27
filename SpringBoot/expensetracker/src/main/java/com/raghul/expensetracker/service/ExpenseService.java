@@ -12,15 +12,15 @@ import com.raghul.expensetracker.model.ExpenseItem;
 
 public interface ExpenseService {
 
-	void saveExpense(ExpenseDTO expenseDTO);
+	void saveExpense(UUID userId,ExpenseDTO expenseDTO);
 	
-	List<ExpenseDTO> getAllExpense();
+	List<ExpenseDTO> getAllExpense(UUID userId);
 	
-	ExpenseDTO getExpenseDetails(UUID expenseId);
+	ExpenseDTO getExpenseDetails(UUID userId,UUID expenseId);
 	
-	ExpenseItemResponseDTO getExpenseItems();
+	ExpenseItemResponseDTO getExpenseItems(UUID userId);
 	
-	Map<String,String> getExpenseDashboard();
+	Map<String,String> getExpenseDashboard(UUID userId);
 	
-	List<ExpenseItemDTO> getExpenseItems(Date startDate,Date endDate,Date startMonth);
+	Map<String, List<ExpenseItemDTO>> getExpenseItems(UUID userId,Date startDate,Date endDate,Date startMonth);
 }

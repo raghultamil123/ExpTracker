@@ -26,17 +26,25 @@ export class ExpenseListComponent implements OnInit {
   }
 
   getExpenseItems(){
-   this.expenseService.getAllExpenseItems()
-   .subscribe( (res)=>{
-     this.expenseItems = res.expenseItems;
-     this.expenseItemsTotal = res.expenseItemsTotal
-   }  )
+    let userId = localStorage.getItem("userId");
+    if(userId){
+      this.expenseService.getAllExpenseItems(userId)
+      .subscribe( (res)=>{
+        this.expenseItems = res.expenseItems;
+        this.expenseItemsTotal = res.expenseItemsTotal
+      })
+    }
+   
   }
 
   getAllExpenses(){
-    this.expenseService.getAllExpenses().subscribe ( (res)=>{
-      this.expenses = res
-    } ) 
+    let userId = localStorage.getItem("userId");
+    if(userId){
+      this.expenseService.getAllExpenses(userId).subscribe ( (res)=>{
+        this.expenses = res
+      } ) 
+    }
+    
   }
   viewExpense(expenseId:string){
     let dialog = this.matDialog.open(

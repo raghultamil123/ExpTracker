@@ -11,6 +11,8 @@ public class ExpenseDTO {
 	private String expenseId;
 	private String expenseName;
 	private List<ExpenseItemDTO> expenseItems;
+	private String userId;
+	private String createdOn;
 	public String getExpenseName() {
 		return expenseName;
 	}
@@ -29,6 +31,21 @@ public class ExpenseDTO {
 	public void setExpenseId(String expenseId) {
 		this.expenseId = expenseId;
 	}
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+	public String getCreatedOn() {
+		return createdOn;
+	}
+	public void setCreatedOn(String createdOn) {
+		this.createdOn = createdOn;
+	}
+	
+	
+	
 	
 	
 

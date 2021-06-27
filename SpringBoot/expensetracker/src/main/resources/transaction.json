@@ -1,0 +1,13 @@
+[
+
+{
+    "userId":"8323dc67-8078-4b07-b485-30e9b957c133",
+    "amount":"450.00",
+    "note":"testing the code value",
+    "recipient":"test@gmail.com",
+    "moneyStatus":"debited",
+    "moneyFromBank":"IndianBank",
+    "userMobileNumberId":"8323dc67-8078-4b07-b485-30e9b957c133"
+}
+
+]

@@ -1,0 +1,31 @@
+[
+
+{
+    "firstName":"Raghul",
+    "lastName":"Tamilaiah",
+     "dateOfBirth":"1998-01-25",
+     "userEmail":[
+         {
+         "email":"raghulkumar31960@gmail.com",
+          "isPrimary":true
+
+         }
+     ],
+     "userPhone":[
+         {
+             "phone":8508774740
+         }
+     ],
+     "userSalary":[
+         {
+             "salary":20000
+         }
+     ],
+     "userPassword":[
+         {
+             "password":"raghul"
+         }
+     ]
+}
+
+]

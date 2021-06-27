@@ -6,13 +6,13 @@
                 <h1>Login</h1>
                     <mat-form-field >
                       <mat-label>Username</mat-label>
-                      <input matInput placeholder="Username">
+                      <input #username matInput placeholder="Username">
                     </mat-form-field>
                     <mat-form-field >
                         <mat-label>Password</mat-label>
-                        <input type="password" matInput placeholder="Password">
+                        <input #password type="password" matInput placeholder="Password">
                       </mat-form-field>
-                <button mat-raised-button color="primary">Submit</button>
+                <button mat-raised-button (click)="authenticateUser(username.value,password.value)" color="primary">Submit</button>
             </div>
         </mat-card-content>
     </mat-card>

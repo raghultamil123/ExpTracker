@@ -1,5 +1,7 @@
 package com.raghul.expensetracker.dto;
 
+import java.sql.Date;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
@@ -10,6 +12,8 @@ public class ExpenseItemDTO {
 	private String expenseItemName;
 	private Integer expenseItemPrice;
 	private Integer expenseItemQuantity;
+	private String userId;
+	private String createdOn;
 	public String getExpenseItemId() {
 		return expenseItemId;
 	}
@@ -34,6 +38,19 @@ public class ExpenseItemDTO {
 	public void setExpenseItemQuantity(Integer expenseItemQuantity) {
 		this.expenseItemQuantity = expenseItemQuantity;
 	}
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+	public String getCreatedOn() {
+		return createdOn;
+	}
+	public void setCreatedOn(String createdOn) {
+		this.createdOn = createdOn;
+	}
+	
 	
 	
 	

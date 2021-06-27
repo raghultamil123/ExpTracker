@@ -19,6 +19,9 @@ public class Expense extends BaseModel{
 	private UUID expenseId;
 	@Column(name="expense_name")
 	private String expenseName;
+	@Column(name="userId")
+	@Type(type="uuid-char")
+	private UUID userId;
 	public UUID getExpenseId() {
 		return expenseId;
 	}
@@ -30,6 +33,12 @@ public class Expense extends BaseModel{
 	}
 	public void setExpenseName(String expenseName) {
 		this.expenseName = expenseName;
+	}
+	public UUID getUserId() {
+		return userId;
+	}
+	public void setUserId(UUID userId) {
+		this.userId = userId;
 	}
 	
 

@@ -3,6 +3,9 @@ import * as Highcharts from 'highcharts';
 import { ExpenseService } from 'src/app/service/expense.service';
 
 import * as moment from 'moment';
+import { HttpParams } from '@angular/common/http';
+import { htmlAstToRender3Ast } from '@angular/compiler/src/render3/r3_template_transform';
+import { ExpenseItem } from 'src/app/shared/model/expense-item.model';
 
 @Component({
   selector: 'app-expense-dashboard',
@@ -10,8 +13,15 @@ import * as moment from 'moment';
   styleUrls: ['./expense-dashboard.component.scss']
 })
 export class ExpenseDashboardComponent implements OnInit {
+  chart;
 
-  constructor(private expenseService:ExpenseService) { }
+  constructor(private expenseService:ExpenseService) {
+    const self = this;
+    this.chartCallback = chart => {
+      // saving chart reference
+      self.chart = chart;
+    };
+   }
 
   expenseItem:number=0
   expenseGroup:number=0
@@ -24,10 +34,14 @@ export class ExpenseDashboardComponent implements OnInit {
     this.getExpenseItemThisWeek();
   }
   getExpenseDashboard(){
-    this.expenseService.getExpenseDashboard().subscribe((res)=>{
-      this.expenseItem = res.expenseItem;
-      this.expenseGroup = res.expenseGroup;
-    })
+    let userId = localStorage.getItem("userId");
+    if(userId){
+      this.expenseService.getExpenseDashboard(userId).subscribe((res)=>{
+        this.expenseItem = res.expenseItem;
+        this.expenseGroup = res.expenseGroup;
+      })
+    }
+    
   }
 
   viewOptions = [
@@ -52,20 +66,45 @@ export class ExpenseDashboardComponent implements OnInit {
     let endString = this.getFormattedDate(endDate)
 
     console.log('start Date ',startDate,' ',endDate);
-    this.expenseService.getExpensesItems(startString,endString,undefined)
-    .subscribe( (res)=>{
-      let dataItem = []
-      res.forEach( (val)=>{
-        let item = {
-          name:val.expenseItemName,
-          data:[val.expenseItemPrice]
-        }
-        dataItem.push(item);
+    let values = new HttpParams();
+    values = values.set("startDate",startString);
+    values = values.set("endDate",endString);
+    let userId = localStorage.getItem("userId");
+    if(userId){
+      this.expenseService.getExpensesItems(userId,values)
+      .subscribe( (response)=>{
+          this.createDatafromMap(response)
+       
       } )
-      this.loadChartData(dataItem) 
-    } )
+    }
+    
 
   }
+
+  createDatafromMap(response){
+    let categories=[];
+    let data=[];
+    let series=[]
+    let value = response;
+    console.log(value);
+
+
+    Object.keys(value).forEach( (key)=>{
+      let sum = 0;
+      data=[];
+      categories.push(key);
+      value[key].forEach( (item)=>{
+        sum += item.expenseItemPrice * item.expenseItemQuantity;
+      } );
+      
+      data.push(sum);
+      series.push({'name':key,'data':data});
+    } ) 
+
+    this.loadChartData(series,categories)
+  }
+
+  
 
   getFormattedDate(date){
     let dd = String(date.getDate()).padStart(2, '0');
@@ -89,45 +128,50 @@ export class ExpenseDashboardComponent implements OnInit {
     let mm = String(date.getMonth() + 1).padStart(2, '0'); 
     let yyyy = date.getFullYear();
     let startMonth = `${yyyy}-${mm}-${dd}`;
-    this.expenseService.getExpensesItems(undefined,undefined,startMonth)
-    .subscribe( (res)=>{
-       let dataItem=[]
-       res.forEach( (val)=>{
-         let item = {
-           name:val.expenseItemName,
-           data:[val.expenseItemPrice]
-         }
-         dataItem.push(item);
-       } ) 
-       this.loadChartData(dataItem)
-    } )
-  }
-  highcharts  = Highcharts
-  chartOptions
-  loadChartData(data){
-    let chartOptions = {
-      chart:{
-        type:'spline'
-      },
-      title:{
-       text:'Daily Expense'
-      },
-      xAxis:{
-        categories:[1,2,3,4,5,6,7,8,9,10],
-        title:{
-          text:'Days'
-        }
-      },
-      yAxis:{
-         Amount:[100,200,300,400,500,600,700,800],
-         title:{
-           text:'Amount'
-         }
-      },
-      series:data
-    }
+    let httpParams = new HttpParams();
+    httpParams = httpParams.set("startMonth",startMonth);
 
-    this.chartOptions = chartOptions
+    let userId = localStorage.getItem("userId");
+    if(userId){
+      this.expenseService.getExpensesItems(userId,httpParams)
+      .subscribe( (res)=>{
+        this.createDatafromMap(res)
+
+      } )
+    }
+    
+  }
+  Highcharts = Highcharts;
+  chartConstructor = "chart";
+  chartCallback;
+
+    chartOptions = {
+    chart:{
+      type:'bar'
+    },
+    title:{
+     text:'Daily Expense'
+    },
+    xAxis:{
+      categories:[],
+      title:{
+        text:'Days'
+      }
+    },
+    yAxis:{
+       Amount:[200,400,600,800,1000],
+       title:{
+         text:'Amount'
+       }
+    },
+    series:[]
+  }
+  loadChartData(data,categories){
+    const self = this,
+    chart = this.chart;
+    self.chartOptions.xAxis.categories = categories
+    self.chartOptions.series=data;
+    self.updateValue=true
 
   }
   

@@ -5,7 +5,7 @@
             <a mat-list-item routerLink="./transaction" matTooltipPosition="right" matTooltip="Transaction" routerLinkActive="component-active"><mat-icon>account_balance_wallet</mat-icon></a>
             <a mat-list-item routerLink="./user" matTooltipPosition="right" matTooltip="Profile" routerLinkActive="component-active"><mat-icon>person</mat-icon></a>
             <a mat-list-item routerLink="./settings" matTooltipPosition="right" matTooltip="Settings" routerLinkActive="component-active"><mat-icon>settings</mat-icon></a>
-            <a mat-list-item routerLink="/login" matTooltipPosition="right" matTooltip="Logout" routerLinkActive="component-active"><mat-icon>logout</mat-icon></a>
+            <a mat-list-item (click)="logout()" matTooltipPosition="right" matTooltip="Logout" ><mat-icon>logout</mat-icon></a>
 
         </mat-nav-list>
 

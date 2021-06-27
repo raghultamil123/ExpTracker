@@ -1,0 +1,61 @@
+[
+
+{
+    "expenseName":"grocery",
+    "expenseItems":[
+        {
+            "expenseItemName":"Shampoo",
+              "expenseItemPrice":2,
+            "expenseItemQuantity":100
+        },
+        {
+            "expenseItemName":"soap",
+              "expenseItemPrice":1,
+            "expenseItemQuantity":100
+        },
+        {
+            "expenseItemName":"comb",
+              "expenseItemPrice":2,
+            "expenseItemQuantity":10
+        },
+        {
+            "expenseItemName":"Mushroom",
+              "expenseItemPrice":3,
+            "expenseItemQuantity":10
+        },
+        {
+            "expenseItemName":"Pen",
+              "expenseItemPrice":2,
+            "expenseItemQuantity":10
+        },
+        {
+            "expenseItemName":"Core Item",
+              "expenseItemPrice":2,
+            "expenseItemQuantity":10
+        },
+        {
+            "expenseItemName":"Chair",
+              "expenseItemPrice":2,
+            "expenseItemQuantity":10
+        },
+        {
+            "expenseItemName":"Stool",
+              "expenseItemPrice":2,
+            "expenseItemQuantity":10
+        },
+        {
+            "expenseItemName":"Pencil",
+              "expenseItemPrice":2,
+            "expenseItemQuantity":10
+        },
+        {
+            "expenseItemName":"Scale",
+            "expenseItemPrice":2,
+            "expenseItemQuantity":100
+        }
+        
+    ]
+}
+
+
+]

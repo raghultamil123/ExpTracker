@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,38 +26,38 @@ public class ExpenseController {
 	@Resource
 	private ExpenseService expenseService;
 	
-	@GetMapping("/available-expenses")
-	public ResponseEntity<?> getExpenses(){
-		return ResponseEntity.ok(expenseService.getAllExpense());
+	@GetMapping("/{userId}/available-expenses")
+	public ResponseEntity<?> getExpenses(@PathVariable("userId") UUID userId ){
+		return ResponseEntity.ok(expenseService.getAllExpense(userId));
 	}
 	
-	@PostMapping("/save-expense")
-	public ResponseEntity<?> postExpense(@RequestBody ExpenseDTO expenseDTO  ){
-		expenseService.saveExpense(expenseDTO);
+	@PostMapping("/{userId}/save-expense")
+	public ResponseEntity<?> postExpense(@PathVariable("userId") UUID userId,@RequestBody ExpenseDTO expenseDTO  ){
+		expenseService.saveExpense(userId,expenseDTO);
 		return ResponseEntity.ok().build();
 	}
 	
-	@GetMapping("/expense-details")
-	public ResponseEntity<?> getExpenseDetails(@RequestParam("expenseId") UUID expenseId ){
+	@GetMapping("/{userId}/expense-details")
+	public ResponseEntity<?> getExpenseDetails(@PathVariable("userId") UUID userId,@RequestParam("expenseId") UUID expenseId ){
 	
-		return ResponseEntity.ok(expenseService.getExpenseDetails(expenseId));
+		return ResponseEntity.ok(expenseService.getExpenseDetails(userId,expenseId));
 	}
 	
-	@GetMapping("/expense-items")
-	public ResponseEntity<?> getExpenseItems(){
-		return ResponseEntity.ok(expenseService.getExpenseItems());
+	@GetMapping("/{userId}/expense-items")
+	public ResponseEntity<?> getExpenseItems(@PathVariable("userId") UUID userId){
+		return ResponseEntity.ok(expenseService.getExpenseItems(userId));
 		
 	}
 	
-	@GetMapping("/dashboard")
-	public ResponseEntity<?> getExpenseDashboard(){
-		return ResponseEntity.ok(expenseService.getExpenseDashboard());
+	@GetMapping("/{userId}/dashboard")
+	public ResponseEntity<?> getExpenseDashboard(@PathVariable("userId") UUID userId){
+		return ResponseEntity.ok(expenseService.getExpenseDashboard(userId));
 	}
 	
-	@GetMapping("/expenses-items")
-	public ResponseEntity<?> getExpensesItems(@RequestParam(value="startDate",required=false) Date startDate,
+	@GetMapping("/{userId}/dashboard/expense-items")
+	public ResponseEntity<?> getExpensesItems(@PathVariable("userId") UUID userId,@RequestParam(value="startDate",required=false) Date startDate,
 			@RequestParam(value="endDate",required=false) Date endDate,@RequestParam(value="startMonth",required=false) Date startMonth ){
-		return ResponseEntity.ok(expenseService.getExpenseItems(startDate, endDate, startMonth));
+		return ResponseEntity.ok(expenseService.getExpenseItems(userId,startDate, endDate, startMonth));
 	}
 	
 	
