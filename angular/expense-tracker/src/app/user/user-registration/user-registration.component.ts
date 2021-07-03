@@ -11,7 +11,7 @@ export class UserRegistrationComponent implements OnInit {
   constructor() { }
 
   user:User={
-    'userId':'',dateOfBirth:'',firstName:'',lastName:'',emails:[
+    'userId':'',dateOfBirth:'',firstName:'',lastName:'',userEmail:[
       {
         id:'',email:'',isPrimary:false
       }
@@ -23,7 +23,7 @@ export class UserRegistrationComponent implements OnInit {
   }
 
   addEmail(){
-    this.user.emails.push(
+    this.user.userEmail.push(
       {
         id:'',email:'',isPrimary:false
       }
@@ -39,7 +39,7 @@ export class UserRegistrationComponent implements OnInit {
   }
 
   deleteEmail(email,index){
-     this.user.emails.splice(index,1)
+     this.user.userEmail.splice(index,1)
   }
   deletePhone(phone,index){
     this.user.mobile.splice(index,1)

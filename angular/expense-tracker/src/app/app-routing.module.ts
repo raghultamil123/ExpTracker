@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AuthGuard } from './auth.guard';
 import { ExpenseDashboardComponent } from './expense/expense-dashboard/expense-dashboard.component';
 import { ExpenseListComponent } from './expense/expense-list/expense-list.component';
 import { ExpenseComponent } from './expense/expense.component';
@@ -14,20 +15,20 @@ import { UserComponent } from './user/user.component';
 
 const routes: Routes = [
 
-  {path:'main',component:HomeComponent,children:[
+  {path:'main',component:HomeComponent,canActivate:[AuthGuard],children:[
     {path:'expense',component:ExpenseComponent,children:[
       {path:'dashboard',component:ExpenseDashboardComponent},
       {path:'expense-list',component:ExpenseListComponent}
     ]},
-    {path:'transaction',component:TransactionComponent,children:[
+    {path:'transaction',canActivate:[AuthGuard],component:TransactionComponent,children:[
       {path:'transaction-list',component:TransactionListComponent}
     ]},
-    {path:'user',component:UserComponent,children:[
+    {path:'user',canActivate:[AuthGuard],component:UserComponent,children:[
       {path:'register',component:UserRegistrationComponent},
       {path: 'details',component:UserDetailsComponent},
       {path:'edit',component:UserRegistrationComponent}
     ]},
-    {path:'settings',component:SettingsComponent}
+    {path:'settings',canActivate:[AuthGuard],component:SettingsComponent}
   ]},
   {path:'login',component:LoginComponent}
 ];

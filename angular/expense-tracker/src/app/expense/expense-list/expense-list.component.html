@@ -1,4 +1,4 @@
-<div fxLayout="column">
+<div fxLayout="column" class="expense-list-container">
 <div fxLayout="row" >
     <button mat-raised-button color="primary"(click)="openAddExpense()" >Add Expense</button>
 
@@ -25,35 +25,47 @@
 
     </div>
 
-    <div fxLayout="row wrap" class="expenses-container">
-        <mat-card *ngFor = "let expense of expenses" class="expense-container" >
-            <mat-card-content>
-                <p> {{expense.expenseName}} </p>
-                <h6>Expense Items</h6>
-                <p>{{expense.expenseItems.length}}</p>
-                <button (click)  = 'viewExpense(expense.expenseId)' mat-raised-button color="primary">View</button>
-            </mat-card-content>
-        </mat-card>
+    <div fxLayout="row" >
+        <div fxFlex="60%"  class="expenses-container">
+            <h3>Expense Group</h3>
+            <div fxLayout="row wrap" fxLayoutGap="8px">
+                <div fxFlex="40%" *ngFor = "let expense of expenses">
+                    <mat-card  class="expense-container" >
+                        <mat-card-content>
+                            <p> {{expense.expenseName}} </p>
+                            <h6>Expense Items</h6>
+                            <p>{{expense.expenseItems.length}}</p>
+                            <button (click)  = 'viewExpense(expense.expenseId)' mat-raised-button color="primary">View</button>
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+                
+            </div>
+            
+        </div>
+
+        <div fxFlex="40%" class="expense-item-container">
+            <h3>Expense Items</h3>
+
+         <table mat-table [dataSource]="expenseItems">
+            <ng-container matColumnDef="expenseItemName">
+                <th mat-header-cell *matHeaderCellDef>Expense Item </th>
+                <td mat-cell *matCellDef="let ele">{{ele.expenseItemName}}</td>
+            </ng-container>
+            <ng-container matColumnDef="price">
+                <th mat-header-cell *matHeaderCellDef>Price</th>
+                <td mat-cell *matCellDef="let ele">{{ele.expenseItemPrice * ele.expenseItemQuantity }}</td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="columns"></tr>
+            <tr mat-row *matRowDef="let row; columns: columns;"></tr>
+         </table>
+        </div>
+       
+
     </div>
 
-    <div fxLayout = "row" class="expense-item-container">
-        <mat-list>
-            <mat-list-item *ngFor = "let expenseItem of expenseItems">
-               <div fxLayout="row">
-                <div fxLayout="column" class="expense-item-holder">
-                    <span> {{expenseItem.expenseItemName}}</span>
-                    <span>ExpenseGroup </span>
-                   </div> 
-                   <div fxLayout="column">
-                    <span class="expense-item-price">{{expenseItem.expenseItemPrice}}</span>
-                    <span>{{expenseItem.expenseItemQuantity}}</span>
-                   </div>
-               </div>
-
-            
-               
-            </mat-list-item>
-        </mat-list>
+    <div fxLayout = "row" >
+       
     </div>
 
 </div>

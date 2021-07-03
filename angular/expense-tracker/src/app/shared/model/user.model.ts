@@ -6,6 +6,6 @@ export class User{
     public firstName:string;
     public lastName:string;
     public dateOfBirth:string;
-    public emails?:UserEmail[];
+    public userEmail?:UserEmail[];
     public mobile?:UserPhone[];
 }

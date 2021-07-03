@@ -17,7 +17,9 @@ export class ExpenseAddComponent implements OnInit {
 
   expense:Expense = {
     'expenseName':'',
-    expenseItems:[]
+    expenseItems:[],
+    userId:localStorage.getItem("userId")
+
   }
   itemsTotal:number=0
   calculateItem(){
@@ -37,7 +39,8 @@ export class ExpenseAddComponent implements OnInit {
       {
         expenseItemName:'',
         expenseItemPrice:0,
-        expenseItemQuantity:0
+        expenseItemQuantity:0,
+        userId:localStorage.getItem("userId")
       }
     )
   }

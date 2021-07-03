@@ -27,16 +27,18 @@ public class TransactionController {
 	private TransactionService transactionService;
 	
 	
-	@PostMapping("/save")
-	public ResponseEntity<?> saveTransaction(@RequestBody TransactionDTO transactionDTO){
+	@PostMapping("/{userId}/save")
+	public ResponseEntity<?> saveTransaction(@RequestBody TransactionDTO transactionDTO,
+			@PathVariable("userId") UUID userId){
+	    transactionDTO.setUserId(userId.toString());
 		transactionService.saveTransaction(transactionDTO);
 		return ResponseEntity.ok().build();
 	}
 	
-	@GetMapping("/available-transaction")
+	@GetMapping("/{userId}/available-transaction")
 	public ResponseEntity<?> getAllTransactions(@RequestParam(value = "bankNames", required = false) List<String> bankNames,
-			@RequestParam(value="statusList",required = false) List<String> status){
-		return ResponseEntity.ok(transactionService.getTransactions(bankNames,status));
+			@RequestParam(value="statusList",required = false) List<String> status,@PathVariable("userId") UUID userId ){
+		return ResponseEntity.ok(transactionService.getTransactions(bankNames,status,userId));
 	}
 	
 	@GetMapping("/{userId}/transaction-filters")

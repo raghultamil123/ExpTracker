@@ -1,17 +1,19 @@
 .expense-container{
     width: 200px;
+    margin-top: 10px;
     margin-right: 20px;
 }
 
 .expenses-container{
-    margin-top: 30px;
-    margin-left: 30px;
+    margin-top: 10px;
 }
 .add-expense-container{
     margin-top: 20px;
     margin-left: 30px;
 }
-
+.expense-list-container{
+    margin:30px;
+}
 .expense-item-holder{
     width: 200px;
 }
@@ -29,4 +31,6 @@
     width: max-content;
     margin-top: 10px;
 }
-
+table{
+    width: 100%;
+}

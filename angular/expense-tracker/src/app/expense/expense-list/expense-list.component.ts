@@ -71,4 +71,6 @@ export class ExpenseListComponent implements OnInit {
     } )
   }
 
+  columns:string[]=["expenseItemName","price"]
+
 }

@@ -11,18 +11,18 @@
                     
                     <div fxLayout="column">
                         <span>FirstName</span>
-                        <span>Raghul</span>
+                        <span>{{user.firstName}}</span>
                      </div>
         
                     <!-- Last Name -->
                     <div fxLayout="column">
                         <span>LastName</span>
-                        <span>Tamilaiah</span>
+                        <span>{{user.lastName}}</span>
                      </div>
         
                      <div fxLayout="column">
                         <span>Date Of Birth</span>
-                        <span>25-01-1998</span>
+                        <span>{{user.dateOfBirth}}</span>
                      </div>
 
                <div fxLayout="column">
@@ -42,13 +42,12 @@
                     <div fxLayout = "row" fxLayoutAlign="space-between none">
                         <div fxLayout ="column">
                             <span>Email</span>
-                            <div class="profile-email-item-container">
-                                <span class="profile-email-item profile-item-primary">raghulkumar31960@gmail.com</span>
-                                <span><mat-icon matTooltip="Primary Email"  matTooltipPosition="above" >mail</mat-icon></span>
+                            <div *ngFor = "let userEmail of user.userEmail"class="profile-email-item-container">
+                                <span class="profile-email-item profile-item-primary">{{userEmail.email}}</span>
+
+                                <span *ngIf = "userEmail.isPrimary"><mat-icon matTooltip="Primary Email"  matTooltipPosition="above" >mail</mat-icon></span>
                             </div>
-                            <div class="profile-email-item-container">
-                                <span class="profile-email-item">raghultamil123@gmail.com</span>
-                            </div>
+    
                         </div>
                         <div fxLayout = "column">
                             <span>Phone</span>

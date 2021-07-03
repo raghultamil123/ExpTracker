@@ -34,25 +34,25 @@ public class TransactionServiceImpl implements TransactionService{
 	}
 
 	@Override
-	public List<TransactionDTO> getTransactions(List<String> bankNames,List<String> status) {
+	public List<TransactionDTO> getTransactions(List<String> bankNames,List<String> status,UUID userId) {
 
 		bankNames = Optional.ofNullable(bankNames).orElse(Collections.emptyList());
 		status = Optional.ofNullable(status).orElse(Collections.emptyList());
-		List<Transaction> transactions = getTransactionsList(bankNames, status);
+		List<Transaction> transactions = getTransactionsList(bankNames, status,userId);
         transactions = Optional.ofNullable(transactions).orElse(Collections.emptyList());	
 		return transactionTranslator.translateToTransactionDTOs(transactions);
 	}
 	
-	private List<Transaction> getTransactionsList(List<String> bankNames,List<String> status){
+	private List<Transaction> getTransactionsList(List<String> bankNames,List<String> status,UUID userId){
 		if(!bankNames.isEmpty() && !status.isEmpty()) {
-			return transactionRepository.findByMoneyFromBankInAndMoneyStatusIn(bankNames, status).get();
+			return transactionRepository.findByMoneyFromBankInAndMoneyStatusInAndUserId(bankNames, status,userId).get();
 		}
 		else if(!bankNames.isEmpty() && status.isEmpty()) {
-			return transactionRepository.findByMoneyFromBankIn(bankNames).get();
+			return transactionRepository.findByMoneyFromBankInAndUserId(bankNames,userId).get();
 		}else if(bankNames.isEmpty() && !status.isEmpty()) {
-			return transactionRepository.findByMoneyStatusIn(bankNames).get();
+			return transactionRepository.findByMoneyStatusInAndUserId(status,userId).get();
 		}else {
-			return transactionRepository.findAll();
+			return transactionRepository.findByUserId(userId).get();
 		}
 	}
 

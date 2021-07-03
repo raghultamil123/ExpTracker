@@ -11,7 +11,7 @@ public interface TransactionService {
 	
 	void saveTransaction(TransactionDTO transactionDTO);
 	
-	List<TransactionDTO> getTransactions(List<String> bankNames,List<String> status);
+	List<TransactionDTO> getTransactions(List<String> bankNames,List<String> status,UUID userId);
 	
 	Map<String,List<RefTermDTO>> getTransactionFilter(UUID userId);
 

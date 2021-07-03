@@ -64,12 +64,16 @@ export class TransactionListComponent implements OnInit , AfterViewInit{
 
 
   getTransactions(): void {
-    this.transactionService.getTransactions([],[]).subscribe((res)=>{
-      this.isTransactionListLoading = false
-      this.transactions = res;
-    },(err)=>{
-      console.log(err);
-    })
+    let userId = localStorage.getItem("userId");
+    if(userId){
+      this.transactionService.getTransactions(userId,[],[]).subscribe((res)=>{
+        this.isTransactionListLoading = false
+        this.transactions = res;
+      },(err)=>{
+        console.log(err);
+      })
+    }
+    
   }
 
   columns:string[]=["amount","note","moneyFromBank","moneyStatus"]
@@ -84,7 +88,8 @@ export class TransactionListComponent implements OnInit , AfterViewInit{
   }
 
   getTransactionFilters(){
-    this.transactionService.getTransactionsFilter().subscribe( (res)=>{
+    let userId = localStorage.getItem("userId")
+    this.transactionService.getTransactionsFilter(userId).subscribe( (res)=>{
 this.checkboxData = res
 let filters = localStorage.getItem("transaction-filter");
 if(filters){
@@ -128,11 +133,15 @@ if(filterChip){
     console.log(this.selectedItem);
     let bankArr = this.selectedItem.get('bank')
     let statusArr = this.selectedItem.get('status')
-    this.transactionService.getTransactions(bankArr,statusArr).subscribe( (res)=>{
-      this.isTransactionListLoading = false;
-      this.transactions = res;
-      this.showFilter = false;
-    } ) 
+    let userId = localStorage.getItem("userId");
+    if(userId){
+      this.transactionService.getTransactions(userId,bankArr,statusArr).subscribe( (res)=>{
+        this.isTransactionListLoading = false;
+        this.transactions = res;
+        this.showFilter = false;
+      } ) 
+    }
+    
 
   }
 

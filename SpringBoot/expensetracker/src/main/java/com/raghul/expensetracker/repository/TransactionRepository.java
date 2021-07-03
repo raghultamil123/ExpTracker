@@ -12,11 +12,11 @@ public interface TransactionRepository extends JpaRepository<Transaction,UUID>{
 	
 	Optional<List<Transaction>> findByUserId(UUID userId);
 	
-	Optional<List<Transaction>> findByMoneyStatusIn(List<String> moneyStatus);
+	Optional<List<Transaction>> findByMoneyStatusInAndUserId(List<String> moneyStatus,UUID userId);
 	
-	Optional<List<Transaction>> findByMoneyFromBankIn(List<String> bankNames);
+	Optional<List<Transaction>> findByMoneyFromBankInAndUserId(List<String> bankNames,UUID userId);
 
-	Optional<List<Transaction>> findByMoneyFromBankInAndMoneyStatusIn(List<String> bankNames,List<String> status);
+	Optional<List<Transaction>> findByMoneyFromBankInAndMoneyStatusInAndUserId(List<String> bankNames, List<String> status, UUID userId);
 
 	
 

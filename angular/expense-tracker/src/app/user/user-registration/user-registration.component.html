@@ -23,7 +23,7 @@
 
     <div fxLayout="row" fxLayoutAlign="space-between none">
         <div fxLayout="column">
-            <div *ngFor = "let email of user.emails;let in=index">
+            <div *ngFor = "let email of user.userEmail;let in=index">
                 <mat-form-field>
                     <input name="email_{{in}}" matInput placeholder="Enter Email Address">
                 </mat-form-field>
